@@ -16,6 +16,21 @@ class Board
   end
 end
 
+# Module for calculating array placement
+module Placement
+  def calculate_array(array_num)
+    insert_array = ''
+    if array_num == 1
+      insert_array = 'line_one'
+    elsif array_num == 2
+      insert_array = 'line_two'
+    else
+      insert_array = 'line_three'
+    end
+    insert_array
+  end
+end
+
 # Class for O Pieces
 class Pieceoh
   attr_accessor :array_num, :space_num, :display
@@ -38,20 +53,7 @@ class Piecex
   end
 end
 
-# Module for calculating array placement
-module Placement
-  def calclate_array(array_num)
-    insert_array = ''
-    if array_num == 1
-      insert_array = 'line_one'
-    elsif array_num == 2
-      insert_array = 'line_two'
-    else
-      insert_array = 'line_three'
-    end
-    insert_array
-  end
-end
+
 
 # Run Game
 game = Board.new
