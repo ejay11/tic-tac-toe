@@ -1,5 +1,13 @@
+# Trying to create global tic-tac-toe board
+row_zero = [' | 1 | 2 | 3 |']
+row_one = ['1|   |   |   |']
+row_two = ['2|   |   |   |']
+row_three = ['3|   |   |   |']
+
 # Creates Board
 class Board
+  attr_accessor :line_one, :line_two, :line_three
+
   def initialize
     @line_zero = [' | 1 | 2 | 3 |']
     @line_one = ['1|   |   |   |']
@@ -19,21 +27,25 @@ end
 # Module for calculating array placement
 module Placement
   def calculate_array(array_num)
-    insert_array = ''
     if array_num == 1
-      insert_array = 'line_one'
+      game.line_one
     elsif array_num == 2
-      insert_array = 'line_two'
+      puts game.line_two
     else
-      insert_array = 'line_three'
+      game.line_three
     end
-    insert_array
   end
 end
+
+# Creates instance of Board class
+game = Board.new
+game.show_board
+puts game.line_two
 
 # Class for O Pieces
 class Pieceoh
   attr_accessor :array_num, :space_num, :display
+
   include Placement
   def initialize(array_num, space_num)
     @array_num = array_num
@@ -53,11 +65,7 @@ class Piecex
   end
 end
 
-
-
 # Run Game
-game = Board.new
-game.show_board
 
 turn_one = Pieceoh.new(2, 3)
 puts turn_one.array_num
