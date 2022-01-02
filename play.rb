@@ -1,26 +1,22 @@
-# Trying to create global tic-tac-toe board
-row_zero = [' | 1 | 2 | 3 |']
-row_one = ['1|   |   |   |']
-row_two = ['2|   |   |   |']
-row_three = ['3|   |   |   |']
-
 # Creates Board
 class Board
   attr_accessor :line_one, :line_two, :line_three
 
+  # Creates Class Variables for all sub-classes to access (board)
+  @@row_zero = [' | 1 | 2 | 3 |']
+  @@row_one = ['1|   |   |   |']
+  @@row_two = ['2|   |   |   |']
+  @@row_three = ['3|   |   |   |']
+
   def initialize
-    @line_zero = [' | 1 | 2 | 3 |']
-    @line_one = ['1|   |   |   |']
-    @line_two = ['2|   |   |   |']
-    @line_three = ['3|   |   |   |']
   end
 
   # Puts Board to Terimal
   def show_board
-    puts @line_zero
-    puts @line_one
-    puts @line_two
-    puts @line_three
+    puts @@row_zero
+    puts @@row_one
+    puts @@row_two
+    puts @@row_three
   end
 end
 
@@ -28,11 +24,11 @@ end
 module Placement
   def calculate_array(array_num)
     if array_num == 1
-      game.line_one
+     @@row_one
     elsif array_num == 2
-      puts game.line_two
+     @@row_two
     else
-      game.line_three
+      @@row_three
     end
   end
 end
@@ -43,7 +39,7 @@ game.show_board
 puts game.line_two
 
 # Class for O Pieces
-class Pieceoh
+class Pieceoh < Board
   attr_accessor :array_num, :space_num, :display
 
   include Placement
@@ -51,17 +47,19 @@ class Pieceoh
     @array_num = array_num
     @space_num = space_num
     @display = 'O'
+    super
   end
 end
 
 # Class for X Pieces
-class Piecex
+class Piecex < Board
   attr_accessor :array_num, :space_num, :display
 
   def initialize(array_num, space_num)
     @array_num = array_num.to_i
     @space_num = space_num.to_i
     @display = 'X'
+    super
   end
 end
 
