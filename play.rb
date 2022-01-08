@@ -7,6 +7,10 @@ class Game
     @row_one = ['1', '|', ' ', '|', ' ', '|', ' ', '|']
     @row_two = ['2', '|', ' ', '|', ' ', '|', ' ', '|']
     @row_three = ['3', '|', ' ', '|', ' ', '|', ' ', '|']
+    @turn = 1
+    puts '--Time to play Tic-Tac-Toe!--'
+    puts 'Here is your board:'
+    show_board
   end
 
   # Puts Board to Terimal
@@ -18,22 +22,26 @@ class Game
   end
 
   def calculate_array(array_num)
-    if array_num == 1
+    case array_num
+    when 1
       @row_one
-    elsif array_num == 2
+    when 2
       @row_two
-    else
+    when 3
       @row_three
+    else
+      puts 'Please enter a number for your row, 1-3'
     end
   end
 
   def calculate_column(space_num)
     column_space = 0
-    if space_num == 1
+    case space_num
+    when 1
       column_space = 2
-    elsif space_num == 2
+    when 2
       column_space = 4
-    elsif space_num == 3
+    when 3
       column_space = 6
     else
       puts 'Invalid row piece location, please enter 1, 2, or 3'
@@ -41,19 +49,17 @@ class Game
     column_space
   end
 
+  # Calculate if Winner Method Needed Here
+
   def play(marker, row_num, column_num)
-    puts "The column number is #{calculate_column(column_num)}"
-    puts "The array you'll need is #{calculate_array(row_num)}"
-    puts "The marker is #{marker}"
-    show_board
+    puts "Turn #{@turn}, putting #{marker} on row #{row_num} and column #{column_num}"
     calculate_array(row_num).insert(calculate_column(column_num), marker)
-    calculate_array(row_num).delete_at(calculate_column(column_num)+1)
+    calculate_array(row_num).delete_at(calculate_column(column_num) + 1)
     show_board
+    @turn += 1
   end
 end
-
 
 # Creates instance of Board class
 lets_start = Game.new
 lets_start.play('O', 2, 1)
-
