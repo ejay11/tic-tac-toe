@@ -51,10 +51,33 @@ class Game
 
   # Calculate if Winner Method Needed Here
 
+  # Is there a way to iterrate through the board's arrays using "check_array_row here?"
+
+  def check_array(_board)
+    if @row_one[2] != ' ' && @row_one[2] == @row_one[4] && @row_one[4] == @row_one[6]
+      puts "You got it! #{@row_one[2]} Wins!"
+    elsif @row_two[2] != ' ' && @row_two[2] == @row_two[4] && @row_two[4] == @row_two[6]
+      puts "You got it! #{@row_two[2]} Wins!"
+    else
+      puts 'Keep Going!'
+    end
+  end
+
+  def check_array_row(array)
+    if array[2] != ' ' && array[2] == array[4] && array[4] == array[6]
+      puts "Whoohoo! #{array[2]} Wins!"
+    else
+      puts 'Keep Going!'
+    end
+  end
+
   def play(marker, row_num, column_num)
     puts "Turn #{@turn}, putting #{marker} on row #{row_num} and column #{column_num}"
     calculate_array(row_num).insert(calculate_column(column_num), marker)
     calculate_array(row_num).delete_at(calculate_column(column_num) + 1)
+    check_board = show_board
+    puts check_board.class
+    check_array(check_board)
     show_board
     @turn += 1
   end
@@ -63,3 +86,5 @@ end
 # Creates instance of Board class
 lets_start = Game.new
 lets_start.play('O', 2, 1)
+lets_start.play('O', 2, 2)
+lets_start.play('O', 2, 3)
