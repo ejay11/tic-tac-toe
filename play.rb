@@ -53,21 +53,25 @@ class Game
 
   # Is there a way to iterrate through the board's arrays using "check_array_row here?"
 
-  def check_array(_board)
-    if @row_one[2] != ' ' && @row_one[2] == @row_one[4] && @row_one[4] == @row_one[6]
-      puts "You got it! #{@row_one[2]} Wins!"
-    elsif @row_two[2] != ' ' && @row_two[2] == @row_two[4] && @row_two[4] == @row_two[6]
-      puts "You got it! #{@row_two[2]} Wins!"
-    else
-      puts 'Keep Going!'
-    end
+  def check_row_one(_board)
+    return true if @row_one[2] != ' ' && @row_one[2] == @row_one[4] && @row_one[4] == @row_one[6]
   end
 
-  def check_array_row(array)
-    if array[2] != ' ' && array[2] == array[4] && array[4] == array[6]
-      puts "Whoohoo! #{array[2]} Wins!"
+  def check_row_two(_board)
+    return true if @row_two[2] != ' ' && @row_two[2] == @row_two[4] && @row_two[4] == @row_two[6]
+  end
+
+  def check_row_three(_board)
+    return true if @row_three[2] != ' ' && @row_three[2] == @row_three[4] && @row_three[4] == @row_three[6]
+  end
+
+  # Runs all three methods, if any are true, return winning statement, otherwise continue
+
+  def find_winner(board)
+    if check_row_one(board) || check_row_two(board) || check_row_three(board)
+      puts 'Congratulations! We have a winner!'
     else
-      puts 'Keep Going!'
+      puts 'Next turn!'
     end
   end
 
@@ -77,7 +81,7 @@ class Game
     calculate_array(row_num).delete_at(calculate_column(column_num) + 1)
     check_board = show_board
     puts check_board.class
-    check_array(check_board)
+    find_winner(check_board)
     show_board
     @turn += 1
   end
