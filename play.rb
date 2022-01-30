@@ -72,13 +72,22 @@ class Game
     end
   end
 
-  # Runs all four methods, if any are true, return winning statement, otherwise continue
+  def check_diagonal_top_down(_board)
+    return true if @row_one[2] != ' ' && @row_one[2] == @row_two[4] && @row_two[4] == row_three[6]
+  end
+
+  def check_diagnoal_down_up(_board)
+    return true if @row_one[6] != ' ' && @row_one[6] == @row_two[4] && @row_two[2] == row_three[6]
+  end
+
+  # Runs methods to check for any winners, if any are true, return winning statement, otherwise continue
 
   def find_winner(board)
-    if check_row_one(board) || check_row_two(board) || check_row_three(board) || check_columns(board)
+    if check_row_one(board) || check_row_two(board) || check_row_three(board) || check_columns(board) || check_diagonal_top_down(board) || check_diagnoal_down_up(board)
       puts 'Congratulations! We have a winner!'
     else
       puts 'Next turn!'
+      show_board
     end
   end
 
@@ -87,15 +96,13 @@ class Game
     calculate_array(row_num).insert(calculate_column(column_num), marker)
     calculate_array(row_num).delete_at(calculate_column(column_num) + 1)
     check_board = show_board
-    puts check_board.class
     find_winner(check_board)
-    show_board
     @turn += 1
   end
 end
 
 # Creates instance of Board class
-lets_start = Game.new
-lets_start.play('O', 1, 1)
-lets_start.play('O', 2, 1)
-lets_start.play('O', 3, 1)
+game = Game.new
+game.play('O', 1, 1)
+game.play('O', 2, 1)
+game.play('O', 3, 1)
