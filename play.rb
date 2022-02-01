@@ -21,6 +21,17 @@ class Game
     puts @row_three.join(' ')
   end
 
+  def piece_placement
+    puts 'Let\'s begin! Are you putting down and X or an O?'
+    piece = gets.chomp
+    puts "OK, a #{piece}. What column would you like to put it: 1, 2, or 3?"
+    column = gets.chomp
+    puts "OK, column #{column}. And now, what row? 1, 2, or 3?"
+    row = gets.chomp
+    puts "Ah, row #{row}. Excellent choice."
+    row
+  end
+
   def calculate_array(array_num)
     case array_num
     when 1
@@ -35,18 +46,8 @@ class Game
   end
 
   def calculate_column(space_num)
-    column_space = 0
-    case space_num
-    when 1
-      column_space = 2
-    when 2
-      column_space = 4
-    when 3
-      column_space = 6
-    else
-      puts 'Invalid row piece location, please enter 1, 2, or 3'
-    end
-    column_space
+    column_space = space_num + space_num
+    puts column_space
   end
 
   # Methods for checking different areas of board
@@ -91,18 +92,12 @@ class Game
     end
   end
 
-  def play(marker, row_num, column_num)
-    puts "Turn #{@turn}, putting #{marker} on row #{row_num} and column #{column_num}"
-    calculate_array(row_num).insert(calculate_column(column_num), marker)
-    calculate_array(row_num).delete_at(calculate_column(column_num) + 1)
-    check_board = show_board
-    find_winner(check_board)
-    @turn += 1
+  def play
+    piece_placement
+    puts row
   end
 end
 
 # Creates instance of Board class
 game = Game.new
-game.play('O', 1, 1)
-game.play('O', 2, 1)
-game.play('O', 3, 1)
+game.play
