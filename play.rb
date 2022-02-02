@@ -23,13 +23,13 @@ class Game
 
   def piece_placement
     puts 'Let\'s begin! Are you putting down and X or an O?'
-    piece = gets.chomp
+    piece = gets.chomp.to_s
     puts "OK, a #{piece}. What column would you like to put it: 1, 2, or 3?"
     column = gets.chomp
     puts "OK, column #{column}. And now, what row? 1, 2, or 3?"
     row = gets.chomp
     puts "Ah, row #{row}. Excellent choice."
-    row
+    [piece, column, row]
   end
 
   def calculate_array(array_num)
@@ -93,8 +93,16 @@ class Game
   end
 
   def play
-    piece_placement
-    puts row
+    piece = piece_placement
+    puts piece
+    board_array = piece[2].to_i
+    board_row = piece[1].to_i
+    print calculate_array(board_array)
+    puts calculate_column(board_row)
+    calculate_array(board_array).insert(calculate_column(board_row), piece[0])
+    calculate_array(board_array).delete_at(calculate_column(board_row) + 1)
+    check_board = show_board
+    find_winner(check_board)
   end
 end
 
