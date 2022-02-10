@@ -21,7 +21,7 @@ class Game
     puts @row_three.join(' ')
   end
 
-  def piece_placement
+  def find_piece
     puts 'Let\'s begin! Are you putting down and X or an O?'
     piece = gets.chomp.to_s
     puts "OK, a #{piece}. What column would you like to put it: 1, 2, or 3?"
@@ -47,9 +47,15 @@ class Game
 
   def calculate_column(space_num)
     column_space = space_num + space_num
-    puts column_space
+    column_space
   end
 
+  def place_piece(board_row, board_array, piece)
+    calculate_array(board_array).insert(calculate_column(board_row), piece)
+    calculate_array(board_array).delete_at(calculate_column(board_row) + 1)
+    calculate_array(board_array)
+
+  end
   # Methods for checking different areas of board
 
   def check_row_one(_board)
@@ -93,18 +99,16 @@ class Game
   end
 
   def play
-    piece = piece_placement
-    puts piece
+    piece = find_piece
     board_array = piece[2].to_i
     board_row = piece[1].to_i
-    print calculate_array(board_array)
-    puts calculate_column(board_row)
-    calculate_array(board_array).insert(calculate_column(board_row), piece[0])
-    calculate_array(board_array).delete_at(calculate_column(board_row) + 1)
+    place_piece(board_row, board_array, piece[0])
     check_board = show_board
     find_winner(check_board)
   end
 end
+
+
 
 # Creates instance of Board class
 game = Game.new
