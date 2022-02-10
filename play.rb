@@ -10,7 +10,6 @@ class Game
     @turn = 1
     puts '--Time to play Tic-Tac-Toe!--'
     puts 'Here is your board:'
-    show_board
   end
 
   # Puts Board to Terimal
@@ -22,7 +21,7 @@ class Game
   end
 
   def find_piece
-    puts 'Let\'s begin! Are you putting down and X or an O?'
+    puts 'Are you putting down and X or an O?'
     piece = gets.chomp.to_s
     puts "OK, a #{piece}. What column would you like to put it: 1, 2, or 3?"
     column = gets.chomp
@@ -46,16 +45,15 @@ class Game
   end
 
   def calculate_column(space_num)
-    column_space = space_num + space_num
-    column_space
+    space_num + space_num
   end
 
   def place_piece(board_row, board_array, piece)
     calculate_array(board_array).insert(calculate_column(board_row), piece)
     calculate_array(board_array).delete_at(calculate_column(board_row) + 1)
     calculate_array(board_array)
-
   end
+
   # Methods for checking different areas of board
 
   def check_row_one(_board)
@@ -88,27 +86,23 @@ class Game
   end
 
   # Runs methods to check for any winners, if any are true, return winning statement, otherwise continue
-
   def find_winner(board)
-    if check_row_one(board) || check_row_two(board) || check_row_three(board) || check_columns(board) || check_diagonal_top_down(board) || check_diagnoal_down_up(board)
-      puts 'Congratulations! We have a winner!'
-    else
-      puts 'Next turn!'
-      show_board
-    end
+    return true if check_row_one(board) || check_row_two(board) || check_row_three(board) || check_columns(board) || check_diagonal_top_down(board) || check_diagnoal_down_up(board)
   end
 
   def play
-    piece = find_piece
-    board_array = piece[2].to_i
-    board_row = piece[1].to_i
-    place_piece(board_row, board_array, piece[0])
     check_board = show_board
-    find_winner(check_board)
+    until find_winner(check_board)
+      piece = find_piece
+      board_array = piece[2].to_i
+      board_row = piece[1].to_i
+      place_piece(board_row, board_array, piece[0])
+      show_board
+    end
+    puts 'Congratulations! We have a winner!'
+    show_board
   end
 end
-
-
 
 # Creates instance of Board class
 game = Game.new
